@@ -28,7 +28,25 @@ def countNgrams(ngramsList):
         countedNgramsList += key + ' : ' + str(value) + '\n'
     return countedNgramsList
 
+def generateCorpus(splitString):
+    ngramsDict = dict()
+    ngram = tuple()
+    print splitString
+    print test = len(splitString -2)
+    for i in range(len(splitString) -2):
+        ngram = (splitString[i], splitString[i+1])
+        nextPossibleCodon = [splitString[i+2]]
+        #nextPossibleCodon = ['FAKE']
+        #ngramsDict = {('FAKE', 'FAKE'): nextPossibleCodon}
+        ngramsDict = {ngram: nextPossibleCodon}
+    return ngramsDict
+
+
 splitString = splitDnaIntoCodons(dnaString).split()
+#print splitString
 ngramsList = findNgrams(splitString)
+#print ngramsList
 countedNgrams = countNgrams(ngramsList)
-print countedNgrams
+#print countedNgrams
+corpus = generateCorpus(splitString)
+print corpus
