@@ -1,6 +1,8 @@
 import collections
 
-dnaString = "ACAAGAACAAGTACAAGT";
+shortdnaString = "ACAAGAACAAGTACAAGT"
+dnaString = "ACAAGAACAAGTACAAGTCAACATAGGCGT"
+longdnaString = "AGAGTTACTTACCGGCCCTTTCCATGCGCGCGCCATACCCTCCTAGTTCCCCGGTTATCTCTCCGAGGAGAGAGTGAGCGATCC"
 
 def splitDnaIntoCodons(dnaString): 
         j = 0
@@ -31,14 +33,23 @@ def countNgrams(ngramsList):
 def generateCorpus(splitString):
     ngramsDict = dict()
     ngram = tuple()
-    print splitString
-    print test = len(splitString -2)
-    for i in range(len(splitString) -2):
-        ngram = (splitString[i], splitString[i+1])
-        nextPossibleCodon = [splitString[i+2]]
-        #nextPossibleCodon = ['FAKE']
-        #ngramsDict = {('FAKE', 'FAKE'): nextPossibleCodon}
-        ngramsDict = {ngram: nextPossibleCodon}
+    
+    for i in range(len(splitString)-1):
+        #print len(splitString)
+        print i
+        splitString[9]
+        if (i < len(splitString)):
+            print i
+            ngram = (splitString[i], splitString[i+1])
+            if (i < len(splitString) - 2):
+                nextPossibleCodon = [splitString[i+2]]
+                print nextPossibleCodon
+                #if ngram in ngramsDict:
+                #    print 'Matched ngram: ' + str(ngram)
+                #    print 'Matched ngram 2: ' + str(ngramsDict[ngram])
+                #else:
+                ngramsDict[ngram] = nextPossibleCodon
+            print ngram
     return ngramsDict
 
 
