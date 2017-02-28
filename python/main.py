@@ -1,7 +1,8 @@
 import collections
 
+
 shortdnaString = "ACAAGAACAAGTACAAGT"
-dnaString = "ACAAGAACAAGTACAAGTCAACATAGGCGT"
+dnaString = "ACAAGAACAAGTACAAGTCAACATACAAGAAGGCGT"
 longdnaString = "AGAGTTACTTACCGGCCCTTTCCATGCGCGCGCCATACCCTCCTAGTTCCCCGGTTATCTCTCCGAGGAGAGAGTGAGCGATCC"
 
 def splitDnaIntoCodons(dnaString): 
@@ -42,13 +43,14 @@ def generateCorpus(splitString):
             print i
             ngram = (splitString[i], splitString[i+1])
             if (i < len(splitString) - 2):
-                nextPossibleCodon = [splitString[i+2]]
+                nextPossibleCodon = splitString[i+2]
+                nextPossibleCodonList = [splitString[i+2]]
                 print nextPossibleCodon
-                #if ngram in ngramsDict:
-                #    print 'Matched ngram: ' + str(ngram)
-                #    print 'Matched ngram 2: ' + str(ngramsDict[ngram])
-                #else:
-                ngramsDict[ngram] = nextPossibleCodon
+                
+                if ngram in ngramsDict:
+                    ngramsDict[ngram].append(nextPossibleCodon)
+                else:
+                    ngramsDict[ngram] = nextPossibleCodonList 
             print ngram
     return ngramsDict
 
