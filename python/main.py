@@ -37,21 +37,27 @@ def generateCorpus(splitString):
     
     for i in range(len(splitString)-1):
         #print len(splitString)
-        print i
-        splitString[9]
+        print "i: ",  i
         if (i < len(splitString)):
-            print i
+            print "splitString 1: ", splitString[i], "splitString 2: ", splitString[i+1]
+            print "SplitString length: ",  len(splitString)
             ngram = (splitString[i], splitString[i+1])
+
+            #add ngram to dictionary with no codon key
+            ngramsDict[ngram] = []
+            
+            #loop through all ngrams, find the next codon
+            #then add append codons to ngram values
             if (i < len(splitString) - 2):
                 nextPossibleCodon = splitString[i+2]
                 nextPossibleCodonList = [splitString[i+2]]
-                print nextPossibleCodon
-                
-                if ngram in ngramsDict:
-                    ngramsDict[ngram].append(nextPossibleCodon)
-                else:
-                    ngramsDict[ngram] = nextPossibleCodonList 
-            print ngram
+                print "nextPossibleCodon: " + nextPossibleCodon
+                print "ngram: ",  ngram
+                if nextPossibleCodon:
+                    if ngram in ngramsDict:
+                        ngramsDict[ngram].append(nextPossibleCodon)
+                    else:
+                        ngramsDict[ngram] = nextPossibleCodonList 
     return ngramsDict
 
 
