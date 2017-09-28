@@ -1,8 +1,8 @@
 import collections
-
+from random import *
 
 shortdnaString = "ACAAGAACAAGTACAAGT"
-dnaString = "ACAAGAACAAGTACAAGTCAACATACAAGAAGGCGT"
+dnaString = "ACAAGAACAAGTACAAGTCAACATACAAGAAGGCGTACAAGAAGG"
 longdnaString = "AGAGTTACTTACCGGCCCTTTCCATGCGCGCGCCATACCCTCCTAGTTCCCCGGTTATCTCTCCGAGGAGAGAGTGAGCGATCC"
 
 def splitDnaIntoCodons(dnaString): 
@@ -36,29 +36,29 @@ def generateCorpus(splitString):
     ngram = tuple()
     
     for i in range(len(splitString)-1):
-        #print len(splitString)
-        print "i: ",  i
         if (i < len(splitString)):
-            print "splitString 1: ", splitString[i], "splitString 2: ", splitString[i+1]
-            print "SplitString length: ",  len(splitString)
             ngram = (splitString[i], splitString[i+1])
 
             #add ngram to dictionary with no codon key
-            ngramsDict[ngram] = []
+            if ngram not in ngramsDict:
+                ngramsDict[ngram] = []
             
             #loop through all ngrams, find the next codon
             #then add append codons to ngram values
             if (i < len(splitString) - 2):
                 nextPossibleCodon = splitString[i+2]
                 nextPossibleCodonList = [splitString[i+2]]
-                print "nextPossibleCodon: " + nextPossibleCodon
-                print "ngram: ",  ngram
                 if nextPossibleCodon:
                     if ngram in ngramsDict:
                         ngramsDict[ngram].append(nextPossibleCodon)
                     else:
                         ngramsDict[ngram] = nextPossibleCodonList 
     return ngramsDict
+
+def generateMarkovText(corpusDict):
+    for i in corpusDict:
+        print(i)
+    
 
 
 splitString = splitDnaIntoCodons(dnaString).split()
@@ -68,4 +68,12 @@ ngramsList = findNgrams(splitString)
 countedNgrams = countNgrams(ngramsList)
 #print countedNgrams
 corpus = generateCorpus(splitString)
-print corpus
+#print corpus
+#generateMarkovText(corpus)
+
+
+#generate random codon
+seed = randint(0, (len(corpus)-1))
+print "Seed: ",  seed
+print corpus.keys()[seed]
+print corpus.values()[seed]

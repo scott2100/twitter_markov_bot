@@ -1,0 +1,52 @@
+ACA AGA
+AGA ACA
+ACA AGT
+AGT ACA
+AGT CAA
+CAA CAT
+CAT ACA
+AGA AGG
+AGG CGT
+
+('ACA', 'AGA')
+('AGA', 'ACA')
+('ACA', 'AGT') 
+('AGT', 'ACA')
+('AGT', 'CAA')
+('CAA', 'CAT')
+('CAT', 'ACA')
+('AGA', 'AGG')
+
+
+('ACA', 'AGA'): ['AGG']
+('AGA', 'ACA'): ['AGT']
+('ACA', 'AGT'): ['CAA']
+('AGT', 'ACA'): ['AGT']
+('AGT', 'CAA'): ['CAT']
+('CAA', 'CAT'): ['ACA']
+('CAT', 'ACA'): ['AGA']
+('AGA', 'AGG'): ['CGT']
+('AGG', 'CGT'): []
+
+('ACA', 'AGA'): ['ACA', 'AGG']
+('AGA', 'ACA'): ['AGT']
+('ACA', 'AGT'): ['ACA', 'CAA']
+('AGT', 'ACA'): ['AGT']
+('AGT', 'CAA'): ['CAT']
+('CAA', 'CAT'): ['ACA']
+('CAT', 'ACA'): ['AGA']
+('AGA', 'AGG'): ['CGT']
+('AGG', 'CGT'): [] 
+
+ACA AGA ACA AGT ACA AGT CAA CAT ACA AGA AGG CGT
+
+
+
+
+
+
+
+
+
+
+
