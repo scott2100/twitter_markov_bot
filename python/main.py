@@ -73,7 +73,14 @@ corpus = generateCorpus(splitString)
 
 
 #generate random codon
-seed = randint(0, (len(corpus)-1))
-print "Seed: ",  seed
-print corpus.keys()[seed]
-print corpus.values()[seed]
+#seed = randint(0, (len(corpus)-1))
+#print "Seed: ",  seed
+#print corpus.keys()[seed]
+#print corpus.values()[seed]
+
+seed = choice(corpus.keys())
+print seed
+possibleNextCodons = corpus[seed]
+print possibleNextCodons
+nextcodon = choice(possibleNextCodons)
+print nextcodon
