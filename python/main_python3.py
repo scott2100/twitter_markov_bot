@@ -55,11 +55,30 @@ def generateCorpus(splitString):
                         ngramsDict[ngram] = nextPossibleCodonList 
     return ngramsDict
 
-def generateMarkovText(corpusDict):
-    for i in corpusDict:
-        print(i)
     
+def generateSeed(corpus):
+    seed = choice(list(corpus.keys()))
+    joinseed = ' '.join(seed)
+    seed = str(joinseed)
+    generateText(seed)
+   
 
+def generateText(seed):
+    fullText = ""
+    print("SEED: " + seed)
+    seedlist = seed.split()
+    nextkey = seedlist[-2], seedlist[-1]
+    while (len(fullText)<100):
+        print("NEXTKEY: " + str(nextkey))
+        nextvalue = choice(corpus[nextkey])
+        print("NEXTVALUE: " + nextvalue)
+        keyandvalue = nextkey[-2] + " " + nextkey[-1] + " " + nextvalue
+        print("keyandvalue: " + keyandvalue)
+        fullText = fullText + " " + keyandvalue
+        fullTextSplit = fullText.split()
+        nextkey = fullTextSplit[-2], fullTextSplit[-1]
+        print("TEXT: " + seed)
+        print("FULL TEXT: " + fullText)
 
 splitString = splitDnaIntoCodons(dnaString).split()
 #print splitString
@@ -70,22 +89,6 @@ countedNgrams = countNgrams(ngramsList)
 corpus = generateCorpus(splitString)
 #print corpus
 #generateMarkovText(corpus)
+generateSeed(corpus)
 
 
-#generate random codon key and then random codon value
-seed = choice(list(corpus.keys()))
-possible_next = corpus[seed]
-next_codon = choice(possible_next)
-
-#convert generated codon key and value to a string
-joinseed = ' '.join(seed)
-finalstring = str(joinseed) + " " + next_codon
-print(finalstring)
-
-#use the last two printed codons as a key to find the next codon value 
-finalstringlist = finalstring.split()
-nextkey = finalstringlist[1], finalstringlist[2]
-print(nextkey)
-#this will be the next randomly choosen value
-nextvalue = choice(corpus[nextkey])
-print(nextvalue)
