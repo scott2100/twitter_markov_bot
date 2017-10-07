@@ -38,7 +38,7 @@ def generateCorpus(splitString):
     for i in range(len(splitString)-1):
         if (i < len(splitString)):
             ngram = (splitString[i], splitString[i+1])
-
+            
             #add ngram to dictionary with no codon key
             if ngram not in ngramsDict:
                 ngramsDict[ngram] = []
@@ -55,11 +55,30 @@ def generateCorpus(splitString):
                         ngramsDict[ngram] = nextPossibleCodonList 
     return ngramsDict
 
-def generateMarkovText(corpusDict):
-    for i in corpusDict:
-        print(i)
     
+def generateSeed(corpus):
+    seed = choice(list(corpus.keys()))
+    joinseed = ' '.join(seed)
+    seed = str(joinseed)
+    generateText(seed)
+   
 
+def generateText(seed):
+    fullText = ""
+    print("SEED: " + seed)
+    seedlist = seed.split()
+    nextkey = seedlist[-2], seedlist[-1]
+    while (len(fullText)<100):
+        print("NEXTKEY: " + str(nextkey))
+        nextvalue = choice(corpus[nextkey])
+        print("NEXTVALUE: " + nextvalue)
+        keyandvalue = nextkey[-2] + " " + nextkey[-1] + " " + nextvalue
+        print("keyandvalue: " + keyandvalue)
+        fullText = fullText + " " + keyandvalue
+        fullTextSplit = fullText.split()
+        nextkey = fullTextSplit[-2], fullTextSplit[-1]
+        print("TEXT: " + seed)
+        print("FULL TEXT: " + fullText)
 
 splitString = splitDnaIntoCodons(dnaString).split()
 #print splitString
@@ -70,17 +89,6 @@ countedNgrams = countNgrams(ngramsList)
 corpus = generateCorpus(splitString)
 #print corpus
 #generateMarkovText(corpus)
+generateSeed(corpus)
 
 
-#generate random codon
-#seed = randint(0, (len(corpus)-1))
-#print "Seed: ",  seed
-#print corpus.keys()[seed]
-#print corpus.values()[seed]
-
-seed = choice(corpus.keys())
-print seed
-possibleNextCodons = corpus[seed]
-print possibleNextCodons
-nextcodon = choice(possibleNextCodons)
-print nextcodon
