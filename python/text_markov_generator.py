@@ -1,5 +1,6 @@
 import collections
 from random import *
+from post_tweet import *
 
 text_file_name = 'trumpspeeches.txt'
 
@@ -46,12 +47,12 @@ def generateSeed(corpus):
     seed = choice(list(corpus.keys()))
     joinseed = ' '.join(seed)
     seed = str(joinseed)
-    generateText(seed)
+    return seed
    
 
 def generateText(seed):
     fullText = ""
-    print("SEED: " + seed)
+    #print("SEED: " + seed)
     seedlist = seed.split()
     nextkey = seedlist[-2], seedlist[-1]
     
@@ -59,37 +60,41 @@ def generateText(seed):
     keyandvalue = nextkey[-2] + " " + nextkey[-1] + " " + nextvalue
     fullText = fullText + " " + keyandvalue
     
-    while (len(fullText)<100):
+    while (len(fullText)<140):
         fullTextSplit = fullText.split()
         nextkey = fullTextSplit[-2], fullTextSplit[-1]
-        print(len(nextkey))
-        print("NEXTKEY: " + str(nextkey))
+        #print(len(nextkey))
+        #print("NEXTKEY: " + str(nextkey))
         
-        print("NEXT VALUE LENGTH: ", len(corpus[nextkey]))
+        #print("NEXT VALUE LENGTH: ", len(corpus[nextkey]))
         #skip adding key if it's empty
         if(len(nextkey)>0 and len(corpus[nextkey])>0):
             nextvalue = choice(corpus[nextkey])
         else:
-            print("In else")
+            #print("In else")
             nextvalue = ''
             #next value should be set to empty somehow...
-        print("NEXTVALUE: " + nextvalue)
-        print("keyandvalue: " + keyandvalue)
-        print("fulltext split length: ",  len(fullText.split()))
+        #print("NEXTVALUE: " + nextvalue)
+        #print("keyandvalue: " + keyandvalue)
+        #print("fulltext split length: ",  len(fullText.split()))
         if(len(fullText.split())>=3):
-            print("In Loop")
+            #print("In Loop")
             fullText = fullText + " " + nextvalue
-        print("FullTextSplit: " + str(fullTextSplit))
-        print("Next key 2: " + str(nextkey))
-        print("TEXT: " + seed)
+        #print("FullTextSplit: " + str(fullTextSplit))
+        #print("Next key 2: " + str(nextkey))
+        #print("TEXT: " + seed)
         print("FULL TEXT: " + fullText)
+    return fullText
 
 
 corpus = generateCorpus(readTextFile(text_file_name))
-print("Corpus: " + str(corpus))
+#print("Corpus: " + str(corpus))
 with open('corpus.txt', 'w') as corpus_txt:
     corpus_txt.write(str(corpus))
 corpus_txt.close()
-generateSeed(corpus)
-
+seed = generateSeed(corpus)
+#print("SEED " + seed)
+tweet = generateText(seed)
+#print("TWEET " + tweet)
+post_tweet(tweet)
 
