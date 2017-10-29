@@ -79,7 +79,10 @@ def generateText(seed):
         #print("fulltext split length: ",  len(fullText.split()))
         if(len(fullText.split())>=3):
             #print("In Loop")
-            fullText = fullText + " " + nextvalue
+            if(len(fullText + " " + nextvalue) < 140):
+                fullText = fullText + " " + nextvalue
+            else:
+                break
         #print("FullTextSplit: " + str(fullTextSplit))
         #print("Next key 2: " + str(nextkey))
         #print("TEXT: " + seed)
@@ -95,6 +98,6 @@ corpus_txt.close()
 seed = generateSeed(corpus)
 #print("SEED " + seed)
 tweet = generateText(seed)
-#print("TWEET " + tweet)
+print("TWEET " + tweet + " TWEET length: ", len(tweet))
 post_tweet(tweet)
 
